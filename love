@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Flower Garden - Soft Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --p-pink: #FFDDE2;
+            --p-rose: #FF9AA2;
+            --p-yellow: #FFFFD1;
+            --p-green: #CAFFBF;
+            --p-blue: #97E2FF;
+            --soft-brown: #7D5A50;
+        }
+
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Mali', cursive; /* ใช้ฟอนต์ลายมือ */
+            background-color: #FFF9F9;
+            color: var(--soft-brown);
+        }
+
+        #app {
+            background: linear-gradient(180deg, #FFF0F3 0%, #FFFFFF 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ปรับปรุงปุ่มให้ดูนุ่มนวลขึ้น */
+        .start-button, .daily-gift-button, .create-bouquet-button {
+            font-family: 'Mali', cursive;
+            border: 3px solid rgba(255,255,255,0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .start-button:hover {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        /* ปรับปรุงหน้า Home ให้เหมือนภาพวาด */
+        .home-title {
+            font-weight: 700;
+            filter: drop-shadow(2px 2px 0px white);
+        }
+
+        /* กระถางแบบนุ่มนวล */
+        .pot-base {
+            background: linear-gradient(to bottom, #E6BE94, #D4A373) !important;
+            border-radius: 0 0 40px 40px;
+            border: 4px solid #BB8A52;
+        }
+
+        .pot-rim {
+            background: #E6BE94 !important;
+            border: 4px solid #BB8A52 !important;
+        }
+
+        /* Animation ดอกไม้โตแบบเด้งดึ๋ง */
+        @keyframes flowerPop {
+            0% { transform: translateX(-50%) scale(0) rotate(-10deg); }
+            70% { transform: translateX(-50%) scale(1.2) rotate(5deg); }
+            100% { transform: translateX(-50%) scale(1) rotate(0deg); }
+        }
+
+        .plant.visible {
+            animation: flowerPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* ซองเมล็ดแบบสไตล์ญี่ปุ่น */
+        .seed-packet {
+            border: 3px dashed var(--p-rose) !important;
+            background: white !important;
+            position: relative;
+        }
+
+        .seed-packet::after {
+            content: '♥';
+            position: absolute;
+            top: 5px; right: 5px;
+            color: var(--p-rose);
+            font-size: 12px;
+        }
+
+        /* ละอองความโชคดี */
+        .luck-particle {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp 2s ease-out forwards;
+            z-index: 100;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(0); opacity: 0; }
+        }
+
+        /* การ์ดสรุปผลแบบ Scrapbook */
+        .bouquet-display {
+            border: 8px double var(--p-pink) !important;
+            background-image: radial-gradient(#FFEBEE 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* หน้าแกลเลอรี่ */
+        .gallery-item {
+            border: 2px solid #EEE;
+            background: #FFF;
+            transform: rotate(calc(var(--r, 0) * 1deg));
+        }
+        
+        .gallery-item:nth-child(odd) { --r: -2; }
+        .gallery-item:nth-child(even) { --r: 2; }
+
+    </style>
+</head>
+<body>
+    <script>
+        // ฟังก์ชันเสริมสำหรับเพิ่มความนุ่มนวลและลูกเล่น
+        function createLuckParticles() {
+            const container = document.querySelector('.pot-container');
+            const hearts = ['🌸', '✨', '♥', '⭐', '☁️'];
+            for (let i = 0; i < 12; i++) {
+                const p = document.createElement('div');
+                p.className = 'luck-particle';
+                p.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+                p.style.left = (Math.random() * 100 + 100) + 'px';
+                p.style.top = '100px';
+                p.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                p.style.animationDelay = (Math.random() * 0.5) + 's';
+                container.appendChild(p);
+                setTimeout(() => p.remove(), 2000);
+            }
+        }
+
+        // แทรกการเรียกใช้ฟังก์ชันนี้ในจุดที่ดอกไม้บาน
+        // ในฟังก์ชัน startGrowth() เดิมของคุณ:
+        /*
+           plantElement.innerHTML = flowerData[selectedSeedType].svg;
+           stageLabel.textContent = 'เบ่งบานแล้ว! 🌸';
+           createLuckParticles(); // เพิ่มบรรทัดนี้ลงไป
+        */
+    </script>
+</body>
+</html>
